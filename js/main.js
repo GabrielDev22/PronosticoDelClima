@@ -48,8 +48,6 @@
                       descripcion = document.createElement('p');
                       descripcion1 = document.createElement('p');
                       imagen1 = document.createElement('img'),
-                     
-
                       
                 // Creando las clases a los elementos
                     card.classList.add('card')
@@ -84,12 +82,13 @@
                     card.appendChild(presion)
                     card.appendChild(viento)
                    
-                 contenedorImagen.appendChild(name)
-                 contenedorImagen.appendChild(contenedorFecha)
-                 contenedorImagen.appendChild(tiempo)
-                 contenedorImagen.appendChild(descripcion1)
-                 contenedorImagen.appendChild(imagen1)
+                    contenedorImagen.appendChild(name)
+                    contenedorImagen.appendChild(contenedorFecha)
+                    contenedorImagen.appendChild(tiempo)
+                    contenedorImagen.appendChild(descripcion1)
+                    contenedorImagen.appendChild(imagen1)
                  
+               
                  contenedor.appendChild(card)   
 
         } catch (err) {
@@ -100,4 +99,6 @@
     }
     getData()
 })();
+
+
 
