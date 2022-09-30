@@ -5,13 +5,36 @@
     async function getData(){
         try {
             let res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Buenos Aires &appid=fffc25dd0555327e5a0644d3cbc1749c`),
-                json = await res.json();     
+                json = await res.json();    
                 
-                let url1 = 'http://openweathermap.org/img/wn/01d@2x.png',
-                    url2 = 'http://openweathermap.org/img/wn/02d@2x.png',
-                    url3 = 'http://openweathermap.org/img/wn/03d@2x.png';
+                let url = "http://openweathermap.org/img/w/";
 
                 console.log(json)
+
+                const fecha = new Date(),
+                dia = fecha.getDate(),
+                mes = fecha.getMonth(),
+                year = fecha.getFullYear();
+
+            // Creacion de los elementos del dom de la Fecha
+                const contenedorFecha = document.createElement('div')
+                const pDia = document.createElement('p')
+                const pMes= document.createElement('p')
+                const pYear = document.createElement('p')
+
+                contenedorFecha.appendChild(pDia)
+                contenedorFecha.appendChild(pMes)
+                contenedorFecha.appendChild(pYear)
+
+            // Creacion de las clases de la fecha    
+               contenedorFecha.classList.add('contenedor-fecha')
+               pDia.classList.add('dia')
+               pMes.classList.add('mes')
+               pYear.classList.add('year')
+
+                pDia.textContent = dia 
+                pMes.textContent = `/${mes + 1}`
+                pYear.textContent = `/${year}`            
 
                 // Creacion de los elementos del DOM
                 const card = document.createElement('div'),
@@ -22,10 +45,10 @@
                       temperaturaMaxima = document.createElement('h3'),
                       temperaturaMinima = document.createElement('h3'),
                       viento = document.createElement('p'),
-                      descripcion = document.createElement('p'),
+                      descripcion = document.createElement('p');
+                      descripcion1 = document.createElement('p');
                       imagen1 = document.createElement('img'),
-                      imagen2 = document.createElement('img'),
-                      imagen3 = document.createElement('img');
+                     
 
                       
                 // Creando las clases a los elementos
@@ -38,9 +61,8 @@
                     temperaturaMinima.classList.add('temperaturaMinima')
                     descripcion.classList.add('descripcion-clima')
                     viento.classList.add('viento')
-                    imagen1.classList.add('img1');
-                    imagen2.classList.add('img2');
-                    imagen3.classList.add('img3');
+                    descripcion1.classList.add('descripcion1');
+                    imagen1.classList.add('imagen1')
                     
                 // Haciendo text content en cada uno de los elementos    
                     name.textContent = json.name
@@ -50,11 +72,8 @@
                     temperaturaMaxima.textContent = `Temperatura Max: ${(json.main.temp_max - 273.15).toFixed(1)} °C`
                     temperaturaMinima.textContent = `Temperatura Min: ${(json.main.temp_min - 273.15).toFixed(1)} °C`
                     viento.textContent = `Viento: ${json.wind.speed}`
-                    imagen1.src = url1
-                    imagen2.src = url2
-                    imagen3.src = url3
-                   
-
+                    descripcion1.textContent = `descripcion: ${json.weather[0].description}`
+                    imagen1.src = url + json.weather[0].icon + '.png';
 
                 // Haciendo appenchild para mostrar los elementos
             
@@ -64,12 +83,11 @@
                     card.appendChild(humedad)
                     card.appendChild(presion)
                     card.appendChild(viento)
-                    card.appendChild(imagen2)
-                    card.appendChild(imagen3)
-                    
                    
                  contenedorImagen.appendChild(name)
+                 contenedorImagen.appendChild(contenedorFecha)
                  contenedorImagen.appendChild(tiempo)
+                 contenedorImagen.appendChild(descripcion1)
                  contenedorImagen.appendChild(imagen1)
                  
                  contenedor.appendChild(card)   
@@ -81,6 +99,5 @@
         }
     }
     getData()
-
 })();
 
